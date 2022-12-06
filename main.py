@@ -12,3 +12,4 @@ Esimese ringi valikud on:
     - F: Filter tasks (küsib, kas by done või undone)
     - E: Exit program
 """
+

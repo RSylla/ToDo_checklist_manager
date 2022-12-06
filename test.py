@@ -1,11 +1,12 @@
 import unittest
 from func import ToDoManager
 
+
 class TestToDoManager(unittest.TestCase):
 
     def setUp(self):
-        self.json_data = []
-        self.obj = None
+        self.obj = ToDoManager("test.json")
+
 
     def test_create(self):
         pass

@@ -6,11 +6,16 @@ import pprint
 
 class ToDoManager:
 
-    def __init__(self):
+    def __init__(self, db_file ):
         self.date = datetime.now().replace(second=0, microsecond=0)
         self.__json_arr = []
-        if path.isfile("database.json"):
-          self.__json_arr = json.load(open("database.json"))
+        self.db_file = db_file
+        if path.isfile(db_file):
+            with open(self.db_file) as f:
+                self.__json_arr = json.load(f)
+
+    def get_json_arr(self):
+        return self.__json_arr
 
     def create(self, task, deadline):
         data = {}
@@ -22,14 +27,18 @@ class ToDoManager:
         data["Deadline"] = str(self.date + timedelta(days=deadline))
         self.__json_arr.append(data)
 
-        with open("database.json", "w+", encoding="utf-8") as file:
+        with open(self.db_file, "w+", encoding="utf-8") as file:
             file.write(json.dumps(self.__json_arr, indent=4))
 
     def read(self, id):
+        flag = False
         for item in self.__json_arr:
             if item["ID"] == id:
-                return item
-        return f"No task with ID: {id}!"
+                flag = True
+                for k, v in item.items():
+                    print(f"{k}: {v}")
+        if not flag:
+            print(f"No task with ID: {id}!")
 
     def update(self, id):
         choice = input("What do you want to update?\n1: Task\n2: Deadline\nEnter your choice>> ")
@@ -43,30 +52,30 @@ class ToDoManager:
             new_deadline = int("Enter new deadline>> ")
             for item in self.__json_arr:
                 if item["ID"] == id:
-                    item["Deadline"] = self.date + timedelta(days=new_deadline)
+                    item["Deadline"] = str(self.date + timedelta(days=new_deadline))
 
-        with open("database.json", "w+", encoding="utf-8") as file:
+        with open(self.db_file, "w+", encoding="utf-8") as file:
             file.write(json.dumps(self.__json_arr, indent=4))
 
     def markAsDone(self, id):
         for item in self.__json_arr:
             if item["ID"] == id:
                 item["Status"] = "Done"
-        with open("database.json", "w+", encoding="utf-8") as file:
+        with open(self.db_file, "w+", encoding="utf-8") as file:
             file.write(json.dumps(self.__json_arr, indent=4))
 
     def markAsUndone(self, id):
         for item in self.__json_arr:
             if item["ID"] == id:
                 item["Status"] = "Undone"
-        with open("database.json", "w+", encoding="utf-8") as file:
+        with open(self.db_file, "w+", encoding="utf-8") as file:
             file.write(json.dumps(self.__json_arr, indent=4))
 
     def delete(self, id):
         for item in self.__json_arr:
             if item["ID"] == id:
                 self.__json_arr.remove(item)
-        with open("database.json", "w+", encoding="utf-8") as file:
+        with open(self.db_file, "w+", encoding="utf-8") as file:
             file.write(json.dumps(self.__json_arr, indent=4))
 
     def sort(self):
@@ -99,7 +108,25 @@ class ToDoManager:
                 print(f"{k}: {v}")
             print("")
 
-manage = ToDoManager()
-
+manage = ToDoManager(db_file="database.json")
 manage.showAll()
+#
+# manage.delete(10)
+# manage.showAll()
+#
+# manage.markAsUndone(9)
+# manage.read(9)
+#
+# manage.markAsDone(9)
+# manage.read(9)
+#
+# manage.filter()
+# task = "Program taskmanager!"
+# deadline = 5
+# manage.create(task, deadline)
+#
+# manage.showAll()
+
+manage.read(1)
+
 
