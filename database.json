@@ -3,7 +3,14 @@
         "ID": 1,
         "Created": "2022-12-06 11:36:00",
         "Task": "Program taskmanager!",
-        "Status": "Undone",
+        "Status": "Done",
         "Deadline": "2022-12-11 11:36:00"
+    },
+    {
+        "ID": 2,
+        "Created": "2022-12-06 21:14:00",
+        "Task": "Go to school",
+        "Status": "Done",
+        "Deadline": "2022-12-12 21:14:00"
     }
 ]

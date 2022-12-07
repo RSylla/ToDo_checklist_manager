@@ -38,7 +38,11 @@ class ToDoManager:
                 for k, v in item.items():
                     print(f"{k}: {v}")
         if not flag:
-            print(f"No task with ID: {id}!")
+            response = f"No task with ID: {id}!"
+            print(response)
+            return response
+
+
 
     def update(self, id):
         choice = input("What do you want to update?\n1: Task\n2: Deadline\nEnter your choice>> ")
@@ -107,26 +111,5 @@ class ToDoManager:
             for k, v in item.items():
                 print(f"{k}: {v}")
             print("")
-
-manage = ToDoManager(db_file="database.json")
-manage.showAll()
-#
-# manage.delete(10)
-# manage.showAll()
-#
-# manage.markAsUndone(9)
-# manage.read(9)
-#
-# manage.markAsDone(9)
-# manage.read(9)
-#
-# manage.filter()
-# task = "Program taskmanager!"
-# deadline = 5
-# manage.create(task, deadline)
-#
-# manage.showAll()
-
-manage.read(1)
 
 
