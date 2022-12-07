@@ -32,15 +32,6 @@ def main():
                        "What would you like to do? >> ").lower()
 
 
-        if choice == "m":
-            print("ToDoManager - an interface to create and sort your tasks ")
-
-
-            if choice == "me":
-                continue
-
-
-
 
         if choice == "c":
             task = input("Please enter your new task. >> ")
